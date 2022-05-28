@@ -14,6 +14,7 @@ bodemag(sys(1,1))
 sisotool(sys(2,2));
 % Cppf1 = first order ppf
 % Cppf2 = 2nd order ppf
+%Cppf3 = ??? badly tuned for 2nd peak
 %% SISO - Closing the loop with C1ppf 
 
 syscontrolled=feedback(sys,-Cppf1,2,2);
@@ -21,6 +22,7 @@ bodemag(sys(1,1))
 hold on
 bodemag(syscontrolled(1,1))
 legend("openloop","closedloop1")
+grid on;
 %% Compare siso of cppf1 and 2
 close all;
 syscontrolled1=feedback(sys,-Cppf1,2,2);
