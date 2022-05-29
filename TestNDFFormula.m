@@ -1,5 +1,17 @@
 clear all;clc;close all;
 
+sys = open("sys.mat").sys;
+
+perf_index = [1,1];
+first_patch = [2,2];
+second_patch = [3,3];
+third_patch = [4,4];
+fourth_patch = [5,5];
+fifth_patch = [6,6];
+
+patchConsidered = first_patch;
+modeToDamp = 1;
+
 %Flag H2 optimization method, Hinifinity if = 0
 H2 = 0;
 
@@ -14,19 +26,37 @@ XiEq = sdpvar(1,1);
 
 %System Variables
 
+sysPatchConsidered = sys(patchConsidered(1),patchConsidered(2));
+tfPatch = tf(sysPatchConsidered);
+[Z,gain] = zero(tfPatch);
+P = pole(tfPatch);
+[rsys,info] = balred(sysPatchConsidered,2);
+
+%maybe add static comp of other modes to gain
+
+% [tempnum,tempdenum] = zp2tf([Z(end-2*(modeToDamp-1));Z(end-(2*(modeToDamp-1)+1))],[P(end-2*(modeToDamp-1));Z(end-(2*(modeToDamp-1)+1))],gain);
+% troncatedtf = tf(tempnum,tempdenum);
+
+% figure 
+% bodemag(tfPatch)
+% hold on
+% bodemag(troncatedtf)
+% hold on 
+% bodemag(rsys)
+
 %system gain
-g0 = 0;
+g0 = gain;
 
 %zero to take into account
-wz = 0;
-XiZ = 0;
+zerotaken = Z(end-2*(modeToDamp-1));
+wz = abs(zerotaken);
+XiZ = -cos(angle(zerotaken));
 
 %pole to take into account
-wp = 0;
-XiP = 0;
+poletaken = P(end-2*(modeToDamp-1));
+wp = abs(poletaken);
+XiP = -cos(angle(poletaken));
 
-F = [F ];
-F = [F ];
 
 %Based on Maximum Damping Method
 
