@@ -57,9 +57,13 @@ poletaken = P(end-2*(modeToDamp-1));
 wp = abs(poletaken);
 XiP = -cos(angle(poletaken));
 
+gamma = wz/wp;
+
+XiF = XiP; %to change
 
 %Based on Maximum Damping Method
 
+wc = wp;
 F = [F XiEq == 2*XiF^2-2*XiP*XiC-XiZ*gamma*Kc*g0];
 F = [F alpha == (XiEq+1)+sign(alpha-1)*sqrt(XiEq^2+2*XiEq)];
 F = [F XiC == ((2*XiF*sqrt(alpha)-XiP)*(1-gamma^2)-(1-alpha)*(2*XiF*sqrt(alpha)-XiP*(1+alpha)))/(alpha*(1-gamma^2))];
@@ -82,8 +86,8 @@ optimize(F,fun)
 
 % Final values
 
-Kc = double(Kc);
-XiC = double(XiC);
-alpha = double(alpha);
+Kc = double(Kc)
+XiC = double(XiC)
+alpha = double(alpha)
 
 w0 = alpha*wp;
