@@ -5,12 +5,12 @@ H2 = 0;
 
 % Controller parameters to find
 Kc = sdpvar(1,1);
-EtaC = sdpvar(1,1);
+XiC = sdpvar(1,1);
 alpha = sdpvar(1,1);
 
 F = [];
 w = sdpvar(1,1);
-EtaEq = sdpvar(1,1);
+XiEq = sdpvar(1,1);
 
 %System Variables
 
@@ -19,24 +19,24 @@ g0 = 0;
 
 %zero to take into account
 wz = 0;
-EtaZ = 0;
+XiZ = 0;
 
 %pole to take into account
 wp = 0;
-EtaP = 0;
+XiP = 0;
 
 F = [F ];
 F = [F ];
 
 %Based on Maximum Damping Method
 
-F = [F EtaEq == 2*EtaF^2-2*EtaP*EtaC-EtaZ*gamma*Kc*g0];
-F = [F alpha == (EtaEq+1)+sign(alpha-1)*sqrt(EtaEq^2+2*EtaEq)];
-F = [F EtaC == ((2*EtaF*sqrt(alpha)-EtaP)*(1-gamma^2)-(1-alpha)*(2*EtaF*sqrt(alpha)-EtaP*(1+alpha)))/(alpha*(1-gamma^2))];
-F = [F Kc == (2*(1-alpha)*(2*EtaF*sqrt(alpha)-EtaP*(1+alpha)))/(g0*alpha*(1-gamma^2))];
+F = [F XiEq == 2*XiF^2-2*XiP*XiC-XiZ*gamma*Kc*g0];
+F = [F alpha == (XiEq+1)+sign(alpha-1)*sqrt(XiEq^2+2*XiEq)];
+F = [F XiC == ((2*XiF*sqrt(alpha)-XiP)*(1-gamma^2)-(1-alpha)*(2*XiF*sqrt(alpha)-XiP*(1+alpha)))/(alpha*(1-gamma^2))];
+F = [F Kc == (2*(1-alpha)*(2*XiF*sqrt(alpha)-XiP*(1+alpha)))/(g0*alpha*(1-gamma^2))];
 
 %Cost function
-closedSystem = sqrt(((wz^2-w^2)^2+(2*EtaZ*wz*w)^2)/((w^4-(wp^2+wc^2+2*EtaZ*wc*Kc*wc*g0)*w^2+wp^2*wc^2)^2+(-w^3*(2*EtaP*wp+2*EtaC*wc+g0*Kc*wc)+(2*EtaP*wp*wc^2+2*EtaC*wc*wp^2+g0*wz^2*Kc*wc)*w)^2));
+closedSystem = sqrt(((wz^2-w^2)^2+(2*XiZ*wz*w)^2)/((w^4-(wp^2+wc^2+2*XiZ*wc*Kc*wc*g0)*w^2+wp^2*wc^2)^2+(-w^3*(2*XiP*wp+2*XiC*wc+g0*Kc*wc)+(2*XiP*wp*wc^2+2*XiC*wc*wp^2+g0*wz^2*Kc*wc)*w)^2));
 
 if H2 == 1
 funH2 = 0;
@@ -53,7 +53,7 @@ optimize(F,fun)
 % Final values
 
 Kc = double(Kc);
-EtaC = double(EtaC);
+XiC = double(XiC);
 alpha = double(alpha);
 
 w0 = alpha*wp;
