@@ -43,6 +43,6 @@ bodemag(syscontrolled1(1,1))
 hold on
 bodemag(syscontrolled3(1,1))
 hold on
-bodemag(syscontrolled5(1,1))
+bodemag(syscontrolled2(1,1))
 % legend("openloop","closedloop1","closedloop2","closedloop3")
-legend("openloop","Cppf1","Cppf3","Cppf5")
+legend("openloop","Cppf1","Cppf3")
