@@ -56,13 +56,13 @@ sisotool(sys(fifth_patch(1),fifth_patch(2)))
 
 %% Damping evaluation SISO
 
-syscontrolled1=feedback(sys,Cndf1,first_patch(1),first_patch(2),1);
-syscontrolled2 = feedback(sys,Cndf2,fifth_patch(1),fifth_patch(2));
+% syscontrolled1=feedback(sys,Cndf1,first_patch(1),first_patch(2),1);
+syscontrolled2 = feedback(sys,Cndf3,fifth_patch(1),fifth_patch(2));
 
 figure
 bodemag(sys(perf_index(1),perf_index(2)))
 hold on
-bodemag(syscontrolled1(perf_index(1),perf_index(2)))
+% bodemag(syscontrolled1(perf_index(1),perf_index(2)))
 hold on
 bodemag(syscontrolled2(perf_index(1),perf_index(2)))
 legend('no control','NDF first peak', 'NDF second peak')

@@ -12,9 +12,9 @@ fifth_patch = [6,6];
 patchConsidered = first_patch;
 modeToDamp = 1;
 
-resolution = 5000;%nb of points
+resolution = 1000;%nb of points
 
-KcMax = 1000;
+KcMax = 10000;
 
 
 Kc = 1/KcMax : KcMax/resolution : KcMax;
@@ -58,16 +58,10 @@ XiP = -cos(angle(poletaken));
 gamma = wz/wp;
 
 wc = wp;
-
-for i = 1 : length(Kc)
+Kc = 1;
     for j = 1: length(XiC)
-        closedSystem(i,j) = sqrt(((wz^2-wp^2)^2+(2*XiZ*wz*wp)^2)/((wp^4-(wp^2+wc^2+2*XiZ*wc*Kc(i)*wc*g0)*wp^2+wp^2*wc^2)^2+(-wp^3*(2*XiP*wp+2*XiC(j)*wc+g0*Kc(i)*wc)+(2*XiP*wp*wc^2+2*XiC(j)*wc*wp^2+g0*wz^2*Kc(i)*wc)*wp)^2));
+        closedSystem(j) = sqrt(((wz^2-wp^2)^2+(2*XiZ*wz*wp)^2)/((wp^4-(wp^2+wc^2+2*XiZ*wc*Kc*wc*g0)*wp^2+wp^2*wc^2)^2+(-wp^3*(2*XiP*wp+2*XiC(j)*wc+g0*Kc*wc)+(2*XiP*wp*wc^2+2*XiC(j)*wc*wp^2+g0*wz^2*Kc*wc)*wp)^2));
     end
-end
 
-h = figure;
-A = axes;
-mesh(XiC,Kc,closedSystem);
-set(A,'ZScale','log')
-
+plot(XiC,closedSystem)
 
