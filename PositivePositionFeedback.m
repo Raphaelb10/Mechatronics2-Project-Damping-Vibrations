@@ -11,7 +11,7 @@ bodemag(sys(2,2))
 bodemag(sys(1,1))
 
 %% SISO First order PPF on first patch
-sisotool(sys(2,2));
+% sisotool(sys(2,2));
 % Cppf1 = first order ppf
 % Cppf2 = 2nd order ppf
 % Cppf3 = 1st order ppf with pole at 5th peak
@@ -30,7 +30,7 @@ grid on;
 
 %% SISO Ppf 1st order, pole at the 5th mode
 %Cppf3
-sisotool(sys(2,2))
+% sisotool(sys(2,2))
 
 %% Compare siso of cppf1 and 2 and 3
 
