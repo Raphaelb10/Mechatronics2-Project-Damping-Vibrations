@@ -48,7 +48,7 @@ legend
 
 %% Sisotool damp first mode on first patch
 
-% sisotool(sys(first_patch(1),first_patch(2)))
+sisotool(sys(first_patch(1),first_patch(2)))
 
 %% Sisotool damp 2nd mode on 5th patch
 
@@ -65,6 +65,10 @@ legend
 %% Sisotool damp 5th mode 3rd patch
 
 % sisotool(sys(third_patch(1),third_patch(2)))
+
+%% Siso controllers
+
+
 
 %% Lazy MIMO controller
 load('CLP1M1.mat')
