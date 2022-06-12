@@ -28,6 +28,7 @@ bodemag(syscontrolled(1,1))
 legend("openloop","closedloop1")
 grid on;
 
+
 %% SISO Ppf 1st order, pole at the 5th mode
 %Cppf3
 sisotool(sys(2,2))
