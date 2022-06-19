@@ -138,12 +138,12 @@ ha.String = 'From : Vai To : Vsi'; % remove the subtitle "From: u1 To: y1"
 %% Siso controllers
 load('CLP1M1.mat')
 load('CDVFP1M1.mat')
-
+load('CLP1MA.mat')
 Linewidth = 2;
 
 syssisocontrolled1=feedback(sys,CDVFP1M1,first_patch(1),first_patch(2));
 syssisocontrolled2=feedback(sys,CLP1M1,first_patch(1),first_patch(2));
-
+syssisocontrolled3=feedback(sys,CLP1MA,first_patch(1),first_patch(2));
 
 opts = bodeoptions('cstprefs');
 opts.PhaseVisible = 'off';
@@ -185,13 +185,27 @@ LinesAx1(2).LineWidth = Linewidth;                                  % Set ‘Lin
 Ax2 = AxAll(2);                                             % Second Set Of Axes
 LinesAx2 = findobj(Ax2,'Type','Line');                      % Handle To Lines
 LinesAx2(2).LineWidth = Linewidth;                                  % Set ‘LineWidth’
+hold on
+bodemag(syssisocontrolled3(perf_index(1),perf_index(2)))
+grid
+Fh = gcf;                                                   % Handle To Current Figure
+Kids = Fh.Children;                                         % Children
+AxAll = findobj(Kids,'Type','Axes');                        % Handles To Axes
+Ax1 = AxAll(1);                                             % First Set Of Axes
+LinesAx1 = findobj(Ax1,'Type','Line');                      % Handle To Lines
+LinesAx1(2).LineWidth = Linewidth;                                  % Set ‘LineWidth’
+Ax2 = AxAll(2);                                             % Second Set Of Axes
+LinesAx2 = findobj(Ax2,'Type','Line');                      % Handle To Lines
+LinesAx2(2).LineWidth = Linewidth;                                  % Set ‘LineWidth’
+
+
 
 title('Bode diagram' ,'FontSize', FontSize);
-xlabel( 'Frequency (Hz)', 'FontSize', FontSize);
-ylabel( 'Magnitude (dB)','FontSize', FontSize);
+xlabel( 'Frequency ', 'FontSize', FontSize);
+ylabel( 'Magnitude ','FontSize', FontSize);
 
-[hleg1, hobj1] = legend('Undamped system','DVF controlled', 'Lead controlled');
-set(hleg1,'position',[0 0 0.5 0.5])
+[hleg1, hobj1] = legend('Undamped system','DVF controlled', 'Lead controlled focused on 1st mode','Lead controlled focused on all modes');
+set(hleg1,'position',[0 0 0.75 0.5])
 textobj = findobj(hobj1, 'type', 'text');
 set(textobj, 'Interpreter', 'latex', 'fontsize', FontSize);
 
@@ -286,8 +300,8 @@ LinesAx2 = findobj(Ax2,'Type','Line');                      % Handle To Lines
 LinesAx2(2).LineWidth = Linewidth;                                  % Set ‘LineWidth’
 
 title('Bode diagram' ,'FontSize', FontSize);
-xlabel( 'Frequency (Hz)', 'FontSize', FontSize);
-ylabel( 'Magnitude (dB)','FontSize', FontSize);
+xlabel( 'Frequency ', 'FontSize', FontSize);
+ylabel( 'Magnitude ','FontSize', FontSize);
 
 [hleg1, hobj1] = legend('Undamped system', 'Lazy MIMO Lead','MIMO Lead');
 set(hleg1,'position',[0 0 0.5 0.5])
